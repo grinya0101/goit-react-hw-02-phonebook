@@ -17,11 +17,12 @@ export class App extends Component {
     if(this.isDuplicate(data)) {
       return alert(`${data.name} - ${data.number} is already on the site`)
     }
+    const newContacts = {
+      id: nanoid(), 
+      ...data
+    }
+    
     this.setState((prev) => {
-      const newContacts = {
-        id: nanoid(), 
-        ...data
-      }
       return {
         contacts: [...prev.contacts, newContacts]
       }
@@ -67,7 +68,7 @@ export class App extends Component {
 
    isDuplicate({name, number}){
      const {contacts} = this.state;
-     const result = contacts.find((item) => item.name === name && item.number === number);
+     const result = contacts.find((item) => item.name === name || item.number === number);
      return result
    }
 
